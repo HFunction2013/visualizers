@@ -21,9 +21,10 @@ RED   = '\033[91m'
 BLUE  = '\033[94m'
 GREEN = '\033[92m'
 RESET = '\033[0m'
-CLEAR = '\033[2J\033[H'
-HIDE  = '\033[?25l'
-SHOW  = '\033[?25h'
+HOME    = '\033[H'       # 光标归位 (0,0)，不清屏
+CLR_EOL = '\033[K'       # 清除到行尾（标题长度变化时防残留）
+HIDE    = '\033[?25l'
+SHOW    = '\033[?25h'
 
 
 # ── 迷宫生成（迭代式递归回溯 / 完美迷宫）──────────────────
@@ -74,7 +75,7 @@ def render(maze, water, path, start, end, step):
         lines.append(''.join(row))
     header = (f"  洪水填充演示  |  波次: {step}  |  "
               f"已淹没: {len(water)} 格  |  起点 S → 终点 E")
-    print(CLEAR + HIDE + header + '\n' + '\n'.join(lines))
+    print(HOME + HIDE + header + CLR_EOL + '\n' + '\n'.join(lines))
 
 
 # ── BFS 洪水填充 ────────────────────────────────────────────
